@@ -1,4 +1,4 @@
-# Auto-BOGONs Script for Mikrotik
+# Auto-BOGONs Script for Mikrotik  fork by Levko Kravchuk
 
 Make your router grab the latest BOGONs list from https://www.team-cymru.com/
 

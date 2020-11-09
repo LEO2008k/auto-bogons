@@ -7,7 +7,7 @@
 #
 # by Phillip Stromberg
 # 2018-11-07
-# modified by Levko Kravchuk , add ipv6 full bogons, 09/11/2020
+# modified by Levko Kravchuk , add ipv6 full bogons, 09/11/2020 
 # uses team-cymru.org BOGON lists
 
 {
@@ -18,6 +18,8 @@
     
 #    :set addressListNamev6 "IPv6_AUTOBOGON"
     :set addressListName "AUTOBOGONv6"
+
+    
     
     ####################### UNCOMMENT THE URL YOU NEED: #######################
     
