@@ -7,14 +7,17 @@
 #
 # by Phillip Stromberg
 # 2018-11-07
+# modified by Levko Kravchuk , add ipv6 full bogons, 09/11/2020
 # uses team-cymru.org BOGON lists
 
 {
     :global content;
     :local url;
     :local addressListName;
+ #   :local addressListNamev6;
     
-    :set addressListName "AUTOBOGON"
+#    :set addressListNamev6 "IPv6_AUTOBOGON"
+    :set addressListName "AUTOBOGONv6"
     
     ####################### UNCOMMENT THE URL YOU NEED: #######################
     
@@ -27,8 +30,10 @@
     ### but not yet assigned by those RIRs to ISPs, end-users, etc.
     ### Updated every four hours.
     
-    # :set url "https://www.team-cymru.org/Services/Bogons/fullbogons-ipv4.txt"
+    #     :set url "https://www.team-cymru.org/Services/Bogons/fullbogons-ipv4.txt"
     
+          :set url "https://www.team-cymru.org/Services/Bogons/fullbogons-ipv6.txt"
+
     ###########################################################################
     
     :local result [/tool fetch url=$url as-value output=user];
@@ -42,7 +47,8 @@
     :global line "";
     :global lastEnd -1;
     
-    /ip firewall address-list remove [find list=$addressListName];
+    /ipv6 firewall address-list remove [find list=$addressListName];
+  #  /ipv6 firewall address-list remove [find list=$addressListNamev6]
     
     :do {
         :set lineEnd [:find $content "\n" $lastEnd ];
@@ -51,7 +57,8 @@
         :if ( [:pick $line 0] = "#" ) do={
         } else={
             # :put $line;
-            /ip firewall address-list add address=$line list=$addressListName;
+            /ipv6 firewall address-list add address=$line list=$addressListName;
+   #         /ipv6 firewall address-list add address=$line list=$addressListNamev6;
         }
         
     } while ($lineEnd < $contentLen - 2)
